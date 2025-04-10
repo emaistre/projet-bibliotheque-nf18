@@ -1,11 +1,6 @@
 #!/usr/bin/python3
 import psycopg2
 
-HOST = "tuxa.sme.utc"
-USER = "nf18a001"
-PASSWORD = "wWa9XF1y"
-DATABASE = "dbnf18a001"
-
 
 def execute_sql(query):
     conn = psycopg2.connect(f"host={HOST} dbname={DATABASE} user={USER} password={PASSWORD}")
