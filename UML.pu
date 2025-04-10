@@ -1,0 +1,94 @@
+@startuml
+!define datatype(x) class x << (D,#FF7700) DataType>>
+datatype(Compte) {
+  login : varchar
+  mdp : varchar
+}
+
+class Exemplaire{
+  {local key} num: int
+  etat: bool
+  dispo: bool
+}
+class Livre {
+ISBN : varchar
+resume : text
+langue : varchar
+}
+
+class Film {
+duree : int
+synopsis : text
+langue : varchar
+}
+
+class Musique {
+duree : int
+}
+
+class Contributeur {
+{key} id : int
+nom : varchar
+prenom : varchar
+naissance : date
+nationalite : varchar
+}
+
+class Personne {
+{key} Compte
+nom : varchar
+prenom : varchar
+adresse : varchar
+email : varchar
+}
+
+class Adherent{
+carte : varchar {unique}
+naissance : date
+tel : int
+}
+
+class Membre{
+  role_employe : varchar
+}
+
+class Suspension {
+{key} id : int
+date : date
+type : enum[date, blacklist, paiement]
+actif: boolean
+}
+
+class Ressource {
+{key} code : int
+titre : varchar
+date : date
+editeur : varchar
+genre : varchar
+classification : varchar
+}
+
+
+
+Personne <|-down- Adherent
+Personne <|-down- Membre
+Livre -up-|> Ressource
+Film -up-|> Ressource
+Musique -up-|> Ressource
+
+Suspension "*" -up- "1" Adherent : est suspendu
+Livre "1..*" -down- "*" Contributeur : est ecrit par
+Contributeur "1..*" -up "*" Musique : est composée par
+Contributeur "1..*" -up "*" Musique : est interprétée par
+Contributeur "1..*" -up "*" Film : est réalisé par
+Contributeur "1..*" -up "*" Film : est joué par
+Ressource *-right- "1..*" Exemplaire
+Exemplaire "0..6" - "0..1" Adherent
+(Exemplaire, Adherent) .. Pret
+class Pret {
+  {key} id: int
+  date : date
+  duree : int
+  estRendu : bool
+}
+@enduml

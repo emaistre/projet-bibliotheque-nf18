@@ -1,0 +1,34 @@
+=== CLASSES === 
+Ressource (#code: INT, titre: VARCHAR, date: DATE, editeur: VARCHAR, genre: VARCHAR, classification: VARCHAR)
+
+Livre (#code => Ressource, ISBN: VARCHAR, resume: TEXT, langue: VARCHAR)
+
+Film (#code => Ressource, duree: INT, synopsis: TEXT, langue: VARCHAR)
+
+Musique (#code => Ressource, duree: INT)
+
+Contributeur(#id: INT, nom: VARCHAR, prenom: VARCHAR, naissance: DATE, nationalite: VARCHAR)
+
+Exemplaire (#num: INT, #code => Ressource, etat: BOOL, dispo:BOOL, estRendu: BOOL)
+
+Compte (#id: INT, login: VARCHAR, mdp: VARCHAR)
+
+Adherent (#<<Compte>>, carte: VARCHAR {unique}, naissance: DATE, tel: int, nom: VARCHAR, prenom: VARCHAR, adresse: VARCHAR, email: VARCHAR)
+
+Membre (#<<Compte>>, nom: VARCHAR, prenom: VARCHAR, adresse: VARCHAR, email: VARCHAR, role_employe: VARCHAR )
+
+Suspension (#id: INT, <<Compte>> => Personne, date: DATE, type: ENUM(date, blacklist, paiement), actif: BOOL)
+
+=== RELATIONS ===
+
+Interprete (#code => Musique, #id => Contributeur)
+
+Compositeur (#code => Musique, #id => Contributeur)
+
+Auteur (#code => Livre, #id => Contributeur)
+
+Realisateur (#code => Film, #id => Contributeur)
+
+Acteur (#code => Film, #id => Contributeur)
+
+Pret (#num => Exemplaire, #compte => Adhérent, date: DATE, duree: INT, estRendu: BOOL)

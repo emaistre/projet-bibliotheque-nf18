@@ -1,0 +1,26 @@
+stages:          
+  - build
+
+
+plantuml:
+    stage: build
+    image:
+        name: think/plantuml
+        entrypoint: [""]
+    stage: build
+    script:
+     - echo "it works!"
+     - ls
+     - java -Djava.awt.headless=true -jar /plantuml.jar ./UML.pu
+    artifacts:
+        paths:
+         - ./UML.png
+        expire_in: 6 months
+    tags:
+     - docker
+    only:
+        changes:
+        - UML.pu
+
+
+

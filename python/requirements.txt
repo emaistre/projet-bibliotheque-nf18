@@ -1,0 +1,8 @@
+tabulate
+psycopg2
+windows-curses; sys_platform == 'win32'
+windows-curses; sys.platform == 'cygwin'
+curses-menu
+faker
+
+
